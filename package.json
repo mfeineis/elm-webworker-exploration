@@ -1,0 +1,17 @@
+{
+  "name": "elm-webworker-exploration",
+  "description": "An exploration of how to run Elm business logic inside a webworker while only using the UI thread to render.",
+  "scripts": {
+    "build": "elm make src/Main.elm --output=dist/app.js"
+  },
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "Martin Feineis",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "devDependencies": {
+    "elm": "^0.19.0-no-deps",
+    "serve": "*",
+    "terser": "*"
+  }
+}
