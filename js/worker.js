@@ -92,6 +92,7 @@ __BRIDGE__.prepare = function (sendToApp, initialModel, flags, view, _VirtualDom
 
 const app = Elm.Main.init({
     flags: {},
+    node: {},
 });
 
 app.ports.changed.subscribe(function noop() {});
@@ -107,7 +108,7 @@ console.log("🔨 worker.app", app);
 //  		impl.update,
 //  		impl.subscriptions,
 //      function(sendToApp, initialModel) {
-//          var render = __BRIDGE__.prepare(sendToApp, initialModel, impl.view, _VirtualDom_diff, args, _VirtualDom_applyPatches, _VirtualDom_virtualize);
+//          var render = __BRIDGE__.prepare(sendToApp, initialModel, args.flags, impl.view, _VirtualDom_diff, args, _VirtualDom_applyPatches, _VirtualDom_virtualize);
 //          return _Browser_makeAnimator(initialModel, render);
 //      }
 //  );

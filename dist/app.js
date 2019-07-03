@@ -3880,31 +3880,39 @@ var _Debugger_element;
 
 var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debugMetadata, args)
 {
-	return _Platform_initialize(
-		flagDecoder,
-		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
-		function(sendToApp, initialModel) {
-			var view = impl.view;
-			/**_UNUSED/
-			var domNode = args['node'];
-			//*/
-			/**/
-			var domNode = args && args['node'] ? args['node'] : _Debug_crash(0);
-			//*/
-			var currNode = _VirtualDom_virtualize(domNode);
-
-			return _Browser_makeAnimator(initialModel, function(model)
-			{
-				var nextNode = view(model);
-				var patches = _VirtualDom_diff(currNode, nextNode);
-				domNode = _VirtualDom_applyPatches(domNode, currNode, patches, sendToApp);
-				currNode = nextNode;
-			});
-		}
-	);
+    const app = _Platform_initialize(
+    		flagDecoder,
+    		args,
+    		impl.init,
+    		impl.update,
+    		impl.subscriptions,
+        function(sendToApp, initialModel) {
+            var render = __BRIDGE__.prepare(sendToApp, initialModel, args.flags, impl.view, _VirtualDom_diff, args, _VirtualDom_applyPatches, _VirtualDom_virtualize);
+            return _Browser_makeAnimator(initialModel, render);
+        }
+    );
+    const proxy = {
+        __app__: app,
+        __proxy__: true,
+        ports: {
+            changed: {
+                subscribe(fn) {
+                    __BRIDGE__.subscribe("changed", fn);
+                },
+            },
+            decrement: {
+                send(data) {
+                    __BRIDGE__.send("decrement", data);
+                },
+            },
+            increment: {
+                send(data) {
+                    __BRIDGE__.send("increment", data);
+                },
+            },
+        },
+    };
+    return proxy;
 });
 
 
