@@ -99,40 +99,46 @@ app.ports.changed.subscribe(function noop() {});
 
 console.log("🔨 worker.app", app);
 
-//var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debugMetadata, args)
-//{
-//  const app = _Platform_initialize(
-//  		flagDecoder,
-//  		args,
-//  		impl.init,
-//  		impl.update,
-//  		impl.subscriptions,
-//      function(sendToApp, initialModel) {
-//          var render = __BRIDGE__.prepare(sendToApp, initialModel, args.flags, impl.view, _VirtualDom_diff, args, _VirtualDom_applyPatches, _VirtualDom_virtualize);
-//          return _Browser_makeAnimator(initialModel, render);
-//      }
-//  );
-//  const proxy = {
-//      __app__: app,
-//      __proxy__: true,
-//      ports: {
-//          changed: {
-//              subscribe(fn) {
-//                  __BRIDGE__.subscribe("changed", fn);
-//              },
-//          },
-//          decrement: {
-//              send(data) {
-//                  __BRIDGE__.send("decrement", data);
-//              },
-//          },
-//          increment: {
-//              send(data) {
-//                  __BRIDGE__.send("increment", data);
-//              },
-//          },
-//      },
-//  };
-//  return proxy;
-//});
+/*
+var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debugMetadata, args)
+{
+  var ignoreUpdate = F2(
+    function (msg, model) {
+    return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+    });
 
+  const app = _Platform_initialize(
+    flagDecoder,
+    args,
+    impl.init,
+    __BRIDGE__.isWorker ? impl.update : ignoreUpdate,
+    impl.subscriptions,
+    function(sendToApp, initialModel) {
+      var render = __BRIDGE__.prepare(sendToApp, initialModel, args.flags, impl.view, _VirtualDom_diff, args, _VirtualDom_applyPatches, _VirtualDom_virtualize);
+      return _Browser_makeAnimator(initialModel, render);
+    }
+  );
+  const proxy = {
+      __app__: app,
+      __proxy__: true,
+      ports: {
+          changed: {
+              subscribe(fn) {
+                  __BRIDGE__.subscribe("changed", fn);
+              },
+          },
+          decrement: {
+              send(data) {
+                  __BRIDGE__.send("decrement", data);
+              },
+          },
+          increment: {
+              send(data) {
+                  __BRIDGE__.send("increment", data);
+              },
+          },
+      },
+  };
+  return proxy;
+});
+*/
